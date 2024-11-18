@@ -1,0 +1,38 @@
+pipeline:
+  name: sample-node-project
+  identifier: samplenodeproject
+  projectIdentifier: Envi
+  orgIdentifier: default
+  tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: account.Github_OAuth_1728911894082
+        repoName: quad-vr/sample-node-project
+        build: <+input>
+  stages:
+    - stage:
+        name: Initialization
+        identifier: Initialization
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: Install Dependencies
+                  identifier: Install_Dependencies
+                  spec:
+                    shell: Bash
+                    command: |-
+                      npm install
+                      npm test 
+                      npm run build
